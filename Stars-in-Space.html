@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stars in Space</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="display"></div>
+    <script>
+        let stars = [];
+
+        function setup() {
+            let sketch = createCanvas(1800, 900);
+            sketch.parent("display");
+            for (let i = 0; i < 200; i++) {
+                stars.push({
+                    x: random(width),
+                    y: random(height),
+                    size: random(1, 4),
+                    brightness: random(100, 255)
+                });
+            }
+        }
+
+        function draw() {
+            background(0);
+
+            for (let star of stars) {
+                fill(star.brightness);
+                noStroke();
+                circle(star.x, star.y, star.size);
+
+                star.x -= star.size * 0.5; // Move stars from right to left
+
+                if (star.x < 0) {
+                    star.x = width;
+                    star.y = random(height);
+                    star.brightness = random(100, 255);
+                }
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</body>
+
+</html>
